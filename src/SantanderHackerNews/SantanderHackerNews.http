@@ -1,0 +1,6 @@
+@SantanderHackerNews_HostAddress = http://localhost:5299
+
+GET {{SantanderHackerNews_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
