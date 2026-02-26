@@ -21,6 +21,7 @@ Não Sobrecarregar a API Externa: Implementei um sistema de Cache em Memória (I
 **Resiliência:** Utilizei o pacote Microsoft.Extensions.Http.Resilience para lidar com falhas temporárias de rede de forma automática.
 
 **🛠 Melhorias que eu faria com mais tempo**
+
 **1) Distributed Cache (Redis):** Se a API precisar rodar em múltiplos servidores (Load Balancer), o cache em memória não seria suficiente. Usaria Redis para compartilhar o cache entre as instâncias.
    
 **2) Filtros e Ordenação Dinâmica:** Expansão da rota para suportar parâmetros de ordenação (ex: por data, por autor) além do score descendente atual.
