@@ -1,33 +1,34 @@
-﻿**Santander Hacker News API**
-Esta API recupera as melhores histórias (Best Stories) do Hacker News, formatadas e ordenadas conforme os requisitos do teste técnico.
+Santander Hacker News API
+This API retrieves the "Best Stories" from Hacker News, formatted and sorted according to the technical assessment requirements.
 
-🚀 Como rodar a aplicação
-Certifique-se de ter o .NET 8 SDK instalado.
+🚀 How to Run the Application
+Ensure you have the .NET 8 SDK installed.
 
-Clone o repositório.
+Clone the repository.
 
-No terminal, na raiz do projeto, execute:
+In the terminal, at the project root, execute:
 
 Bash
 
 dotnet run
-A documentação Swagger abrirá automaticamente em http://localhost:5000/index.html (ou na porta configurada).
+The Swagger documentation will automatically open at http://localhost:5000/index.html (or your configured port).
 
-**Premissas e Decisões de Design**
-Não Sobrecarregar a API Externa: Implementei um sistema de Cache em Memória (IMemoryCache) e um limitador de concorrência (SemaphoreSlim). Isso garante que, mesmo com maior demanda de usuários acessando API, o número de requisições enviadas ao Hacker News seja controlado e reaproveitado. Optei por uma arquitetura monolítica, baseado em eficiência operacional, alta coesão e escalabilidade simples.
+Premises and Design Decisions
+Managing External API Load: I implemented an In-Memory Cache (IMemoryCache) and a concurrency limiter (SemaphoreSlim). This ensures that even with high user demand, the number of requests sent to Hacker News is controlled and reused.
 
-**Conversão de Dados:** O Hacker News retorna o tempo em Unix Epoch. Fizemos a conversão para DateTimeOffset para atender ao formato ISO 8601 solicitado.
+Architecture: I opted for a monolithic architecture to prioritize operational efficiency, high cohesion, and simplified scalability.
 
-**Resiliência:** Utilizei o pacote Microsoft.Extensions.Http.Resilience para lidar com falhas temporárias de rede de forma automática.
+Data Conversion: Hacker News returns time in Unix Epoch. I implemented a conversion to DateTimeOffset to comply with the requested ISO 8601 format.
 
-**🛠 Melhorias que eu faria com mais tempo**
+Resilience: I utilized the Microsoft.Extensions.Http.Resilience package to automatically handle transient network failures.
 
-**1) Distributed Cache (Redis):** Se a API precisar rodar em múltiplos servidores (Load Balancer), o cache em memória não seria suficiente. Usaria Redis para compartilhar o cache entre as instâncias.
-   
-**2) Filtros e Ordenação Dinâmica:** Expansão da rota para suportar parâmetros de ordenação (ex: por data, por autor) além do score descendente atual.
-   
-**3) Paginação de Resultados:** Implementação de page e pageSize para otimizar o tráfego de rede e a performance do front-end ao lidar com grandes volumes de histórias.
-   
-**4) Logging Estruturado:** Implementaria o Serilog para enviar logs para um ElasticSearch ou Application Insights, facilitando o monitoramento.
+🛠 Improvements I Would Make with More Time
+Distributed Cache (Redis): If the API needs to run on multiple servers (Load Balancer), in-memory caching would not be sufficient. I would use Redis to share the cache across instances.
 
-**5) Auto-refresh (Background Worker):** Implementaria um BackgroundService que atualiza o cache a cada 5 minutos de forma independente das requisições dos usuários, garantindo latência zero para o cliente final.
+Filters and Dynamic Sorting: Expansion of the route to support sorting parameters (e.g., by date, by author) in addition to the current descending score.
+
+Result Pagination: Implementation of page and pageSize to optimize network traffic and frontend performance when dealing with large volumes of stories.
+
+Structured Logging: I would implement Serilog to send logs to ElasticSearch or Application Insights, facilitating monitoring.
+
+Auto-refresh (Background Worker): I would implement a BackgroundService that updates the cache every 5 minutes independently of user requests, ensuring zero latency for the end client.
